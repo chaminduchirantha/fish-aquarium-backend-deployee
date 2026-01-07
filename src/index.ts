@@ -25,13 +25,18 @@ const app = express()
 
 app.use(express.json())
 
+
 app.use(
   cors({
-    // origin: ["http://localhost:5173"],
-    origin: ["https://fish-aquarium-frontend-deployee.vercel.app"],
-    methods: ["GET", "POST", "PUT", "DELETE"]
+    origin: "https://fish-aquarium-frontend-deployee.vercel.app", // frontend domain
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
   })
-)
+);
+
+// must handle preflight
+
 
 app.use("/api/v1/auth" , authRouter)
 app.use("/api/v1/aquarium" , customAquariumRouter)
