@@ -25,18 +25,16 @@ const app = express()
 
 app.use(express.json())
 
+// CORS configuration
+const corsOptions = {
+  origin: "https://fish-aquarium-frontend-deployee.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+  preflightContinue: false
+}
 
-app.use(
-  cors({
-    origin: "https://fish-aquarium-frontend-deployee.vercel.app", // frontend domain
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true
-  })
-);
-
-// must handle preflight
-
+app.use(cors(corsOptions))
 
 app.use("/api/v1/auth" , authRouter)
 app.use("/api/v1/aquarium" , customAquariumRouter)
