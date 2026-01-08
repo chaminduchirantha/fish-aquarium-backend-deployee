@@ -27,7 +27,7 @@ app.use(express.json())
 
 // CORS configuration
 const corsOptions = {
-  origin: "https://fish-aquarium-frontend-deployee.vercel.app",
+  origin: "https://fish-aquarium-iota.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
