@@ -3,6 +3,7 @@ import { authenticate } from "../middleware/auth";
 import { requireRole } from "../middleware/role";
 import { Role } from "../model/user";
 import { createOrders, getAllFishOrders, getOrdersByUser, updateOrderStatus} from "../controller/ordersFishController";
+import { generateOrderReport } from "../controller/pdfOrderFishReportController";
 
 const router = Router()
 
@@ -10,6 +11,7 @@ router.post("/createOrders",  authenticate , requireRole([Role.USER]) ,createOrd
 router.get("/allOrders" , authenticate ,requireRole([Role.ADMIN]), getAllFishOrders)
 router.put("/updateStatus/:id",authenticate,requireRole([Role.ADMIN]),updateOrderStatus);
 router.get("/viewOrder/:email", getOrdersByUser);
+router.get("/report/pdf", authenticate, requireRole([Role.ADMIN]), generateOrderReport);
 
 
 
