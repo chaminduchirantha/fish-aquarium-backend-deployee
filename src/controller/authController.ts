@@ -115,47 +115,5 @@ export const handleRefreshToken = async (req: Request, res: Response) => {
   }
 }
 
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-      callbackURL: "/auth/google/callback",
-      proxy:true
-    },
-    async (accessToken, refreshToken, profile, done) => {
-      try {
-
-        const email = profile.emails?.[0].value
-
-        let user = await User.findOne({ email })
-
-        if (!user) {
-          user = new User({
-            firstname: profile.name?.givenName,
-            lastname: profile.name?.familyName,
-            email,
-            password: "", 
-            role: ["USER"],
-          })
-
-          await user.save()
-        }
-
-        const accessTokenJWT = signAccessToken(user)
-        const refreshTokenJWT = signRefreshToken(user)
-
-        return done(null, {
-          user,
-          accessToken: accessTokenJWT,
-          refreshToken: refreshTokenJWT
-        })
-
-      } catch (error) {
-        return done(error, undefined)
-      }
-    }
-  )
-)
 
 export default passport
