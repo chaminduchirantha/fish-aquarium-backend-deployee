@@ -8,3 +8,5 @@ router.post("/register" , register)
 router.post("/login", login)
 router.get("/get", authenticate, getMyDetails)
 router.post("/refresh", handleRefreshToken)
+
+export default router
